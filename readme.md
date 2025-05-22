@@ -108,59 +108,44 @@ This document provides the Low-Level Design (LLD) for an Online Exam Portal aime
  
  
 ## Project Structure
-/online-exam-portal-backend
-│
-├── src/
-│   └── main/
-│       ├── java/
-│       │   └── com/
-│       │       └── examportal/
-│       │           ├── controller/
-│       │           │   ├── AdminController.java
-│       │           │   ├── UserController.java
-│       │           │   ├── ExamController.java
-│       │           │   └── ReportController.java
-│       │           │
-│       │           ├── service/
-│       │           │   ├── AdminService.java
-│       │           │   ├── UserService.java
-│       │           │   ├── ExamService.java
-│       │           │   └── ReportService.java
-│       │           │
-│       │           ├── service/impl/
-│       │           │   ├── AdminServiceImpl.java
-│       │           │   ├── UserServiceImpl.java
-│       │           │   ├── ExamServiceImpl.java
-│       │           │   └── ReportServiceImpl.java
-│       │           │
-│       │           ├── repository/
-│       │           │   ├── UserRepository.java
-│       │           │   ├── ExamRepository.java
-│       │           │   ├── QuestionRepository.java
-│       │           │   ├── ResponseRepository.java
-│       │           │   └── ReportRepository.java
-│       │           │
-│       │           ├── model/
-│       │           │   ├── User.java
-│       │           │   ├── Exam.java
-│       │           │   ├── Question.java
-│       │           │   ├── Response.java
-│       │           │   └── Report.java
-│       │           │
-│       │           ├── config/
-│       │           │   ├── SecurityConfig.java
-│       │           │   └── WebConfig.java
-│       │           │
-│       │           ├── exception/
-│       │           │   ├── GlobalExceptionHandler.java
-│       │           │   └── ResourceNotFoundException.java
-│       │           │
-│       │           └── ExamPortalApplication.java
-│       │
-│       └── resources/
-│           ├── application.properties
-│           └── data.sql (optional seed data)
-│
-└── pom.xml
- 
- 
+```plaintext
+online-exam-portal-backend/
+  └── src/
+      └── main/
+          ├── java/
+          │   └── com/
+          │       └── examportal/
+          │           ├── controller/
+          │           │   ├── AdminController.java
+          │           │   ├── UserController.java
+          │           │   ├── ExamController.java
+          │           │   └── ReportController.java
+          │           ├── service/
+          │           │   ├── AdminService.java
+          │           │   ├── UserService.java
+          │           │   ├── ExamService.java
+          │           │   └── ReportService.java
+          │           ├── repository/
+          │           │   ├── UserRepository.java
+          │           │   ├── ExamRepository.java
+          │           │   ├── QuestionRepository.java
+          │           │   └── ReportRepository.java
+          │           ├── model/
+          │           │   ├── User.java
+          │           │   ├── Exam.java
+          │           │   ├── Question.java
+          │           │   └── Report.java
+          │           ├── config/
+          │           │   ├── SecurityConfig.java
+          │           │   └── WebConfig.java
+          │           ├── exception/
+          │           │   ├── GlobalExceptionHandler.java
+          │           │   └── ResourceNotFoundException.java
+          │           └── ExamPortalApplication.java
+          └── resources/
+              ├── application.properties
+              └── data.sql
+pom.xml
+```
+
+
