@@ -146,6 +146,87 @@ online-exam-portal-backend/
               ├── application.properties
               └── data.sql
 pom.xml
+````
+## 4.1 Admin Module (Low-Level Design)
+
+### Overview
+The Admin Module enables administrators to manage exams, questions, and user roles. It exposes REST APIs for CRUD operations on exams and questions, as well as for assigning roles to users.
+
+### Main Components
+
+- **Controller:** [`AdminController`](backend/src/main/java/com/examportal/controller/AdminController.java)
+- **Service:** [`AdminService`](backend/src/main/java/com/examportal/service/AdminService.java), [`AdminServiceImpl`](backend/src/main/java/com/examportal/service/Impl/AdminServiceImpl.java)
+- **Repositories:** [`ExamRepository`](backend/src/main/java/com/examportal/repository/ExamRepository.java), [`QuestionRepository`](backend/src/main/java/com/examportal/repository/QuestionRepository.java), [`UserRepository`](backend/src/main/java/com/examportal/repository/UserRepository.java)
+- **Models:** [`Exam`](backend/src/main/java/com/examportal/model/Exam.java), [`Question`](backend/src/main/java/com/examportal/model/Question.java), [`User`](backend/src/main/java/com/examportal/model/User.java)
+
+### Endpoints
+
+| Method | Endpoint                              | Description                        | Access      |
+|--------|---------------------------------------|------------------------------------|-------------|
+| POST   | `/api/admin/exams`                    | Create a new exam                  | ADMIN only  |
+| PUT    | `/api/admin/exams/{id}`               | Update an existing exam            | ADMIN only  |
+| DELETE | `/api/admin/exams/{id}`               | Delete an exam                     | ADMIN only  |
+| POST   | `/api/admin/questions`                | Add a new question                 | ADMIN only  |
+| PUT    | `/api/admin/questions/{id}`           | Update a question                  | ADMIN only  |
+| DELETE | `/api/admin/questions/{id}`           | Delete a question                  | ADMIN only  |
+| PUT    | `/api/admin/users/{id}/role`          | Assign a role to a user            | ADMIN only  |
+| PUT    | `/api/admin/exams/{examId}/questions` | Add questions to an existing exam  | ADMIN only  |
+
+### Controller Logic
+
+- **Exam Management:**  
+  - Create, update, and delete exams using `ExamRepository`.
+  - Assign an examiner and a set of questions to an exam.
+- **Question Management:**  
+  - CRUD operations on questions using `QuestionRepository`.
+- **Role Assignment:**  
+  - Assigns roles to users by updating the `role` field in the `User` entity.
+- **Add Questions to Exam:**  
+  - Allows batch addition of questions to an existing exam.
+
+### Service Layer
+
+- **AdminService** defines the contract for question management.
+- **AdminServiceImpl** implements business logic for adding, updating, deleting, and retrieving questions.
+
+### Security
+
+- All endpoints are protected and require the user to have the `ROLE_ADMIN` authority.
+- Security is enforced via Spring Security configuration in [`SecurityConfig`](backend/src/main/java/com/examportal/security/SecurityConfig.java).
+
+### Data Model
+
+- **Exam:**  
+  - Fields: `examId`, `title`, `description`, `duration`, `totalMarks`, `examiner` (User), `questions` (List of Question)
+- **Question:**  
+  - Fields: `questionId`, `text`, `category`, `difficulty`, `correctAnswer`, etc.
+- **User:**  
+  - Fields: `userId`, `name`, `email`, `password`, `role`
+
+### Example: Create Exam API
+
+**Request:**  
+`POST /api/admin/exams?examinerId=1&questionIds=2,3,4`  
+**Body:**  
+```json
+{
+  "title": "Java Basics",
+  "description": "Test on Java fundamentals",
+  "duration": 60,
+  "totalMarks": 100
+}
 ```
+**Response:**  
+Returns the created `Exam` object with assigned examiner and questions.
+
+### Error Handling
+
+- Uses [`GlobalExceptionHandler`](backend/src/main/java/com/examportal/exception/GlobalExceptionHandler.java) for consistent error responses.
+- Throws `ResourceNotFoundException` if entities are not found.
+
+---
+
+**Note:**  
+All business logic for the Admin Module is implemented in the backend under the `controller`, `service`, and `repository` packages as described above.
 
 
