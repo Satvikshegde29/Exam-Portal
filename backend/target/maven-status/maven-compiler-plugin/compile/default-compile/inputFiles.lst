@@ -1,0 +1,25 @@
+<<<<<<< HEAD
+C:\Users\2407106\project\online-exam-portal\backend\src\main\java\com\examportal\controller\AdminController.java
+C:\Users\2407106\project\online-exam-portal\backend\src\main\java\com\examportal\controller\UserController.java
+C:\Users\2407106\project\online-exam-portal\backend\src\main\java\com\examportal\controller\Valid.java
+C:\Users\2407106\project\online-exam-portal\backend\src\main\java\com\examportal\ExamPortalApplication.java
+C:\Users\2407106\project\online-exam-portal\backend\src\main\java\com\examportal\exception\GlobalExceptionHandler.java
+C:\Users\2407106\project\online-exam-portal\backend\src\main\java\com\examportal\exception\ResourceNotFoundException.java
+C:\Users\2407106\project\online-exam-portal\backend\src\main\java\com\examportal\model\User.java
+C:\Users\2407106\project\online-exam-portal\backend\src\main\java\com\examportal\repository\UserRepository.java
+C:\Users\2407106\project\online-exam-portal\backend\src\main\java\com\examportal\security\JwtRequestFilter.java
+C:\Users\2407106\project\online-exam-portal\backend\src\main\java\com\examportal\security\JwtUtil.java
+C:\Users\2407106\project\online-exam-portal\backend\src\main\java\com\examportal\security\SecurityConfig.java
+C:\Users\2407106\project\online-exam-portal\backend\src\main\java\com\examportal\service\AdminService.java
+C:\Users\2407106\project\online-exam-portal\backend\src\main\java\com\examportal\service\Impl\AdminServiceImpl.java
+C:\Users\2407106\project\online-exam-portal\backend\src\main\java\com\examportal\service\Impl\UserServiceImpl.java
+C:\Users\2407106\project\online-exam-portal\backend\src\main\java\com\examportal\service\UserService.java
+=======
+C:\Users\2407091\project\online-exam-portal\backend\src\main\java\com\examportal\controller\AdminController.java
+C:\Users\2407091\project\online-exam-portal\backend\src\main\java\com\examportal\ExamPortalApplication.java
+C:\Users\2407091\project\online-exam-portal\backend\src\main\java\com\examportal\exception\GlobalExceptionHandler.java
+C:\Users\2407091\project\online-exam-portal\backend\src\main\java\com\examportal\model\User.java
+C:\Users\2407091\project\online-exam-portal\backend\src\main\java\com\examportal\repository\UserRepository.java
+C:\Users\2407091\project\online-exam-portal\backend\src\main\java\com\examportal\service\AdminService.java
+C:\Users\2407091\project\online-exam-portal\backend\src\main\java\com\examportal\service\Impl\AdminServiceImpl.java
+>>>>>>> cce088a159e2d9090e776ba3c158af7c9d195289
