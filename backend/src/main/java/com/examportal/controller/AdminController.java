@@ -41,8 +41,8 @@ public class AdminController {
     public ResponseEntity<Exam> createExam(@RequestBody Exam exam, @RequestParam Long examinerId, @RequestParam List<Long> questionIds) {
         User examiner = userRepository.findById(examinerId)
             .orElseThrow(() -> new RuntimeException("Examiner not found"));
-        List<Question> questions = questionRepository.findAllById(questionIds);
-        exam.setExaminer(examiner);
+         List<Question> questions = questionRepository.findAllById(questionIds);
+         exam.setExaminer(examiner);
         exam.setQuestions(questions);
         return ResponseEntity.ok(examRepository.save(exam));
     }

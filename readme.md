@@ -150,14 +150,30 @@ pom.xml
 ## 4.1 Admin Module (Low-Level Design)
 
 ### Overview
-The Admin Module enables administrators to manage exams, questions, and user roles. It exposes REST APIs for CRUD operations on exams and questions, as well as for assigning roles to users.
+The Admin Module is responsible for all administrative operations in the system. It allows administrators to create, update, and delete exams and questions, as well as manage user roles (assigning roles such as STUDENT or EXAMINER). All endpoints are secured and accessible only to users with the `ROLE_ADMIN` authority.
+
+### Dependencies
+
+The Admin Module depends on the following libraries and frameworks:
+
+- Spring Boot Starter Web (for building RESTful APIs)
+- Spring Boot Starter Data JPA (for ORM and database access)
+- Spring Boot Starter Security (for securing endpoints and role-based access)
+- MySQL/PostgreSQL Driver (for database connectivity)
+- Lombok (to reduce boilerplate code in models and services)
+- Validation API (for request validation)
+- Spring Boot Starter Test (for unit and integration testing)
 
 ### Main Components
 
-- **Controller:** [`AdminController`](backend/src/main/java/com/examportal/controller/AdminController.java)
-- **Service:** [`AdminService`](backend/src/main/java/com/examportal/service/AdminService.java), [`AdminServiceImpl`](backend/src/main/java/com/examportal/service/Impl/AdminServiceImpl.java)
-- **Repositories:** [`ExamRepository`](backend/src/main/java/com/examportal/repository/ExamRepository.java), [`QuestionRepository`](backend/src/main/java/com/examportal/repository/QuestionRepository.java), [`UserRepository`](backend/src/main/java/com/examportal/repository/UserRepository.java)
-- **Models:** [`Exam`](backend/src/main/java/com/examportal/model/Exam.java), [`Question`](backend/src/main/java/com/examportal/model/Question.java), [`User`](backend/src/main/java/com/examportal/model/User.java)
+- **Controller:** `AdminController`  
+  Handles HTTP requests for exam, question, and user role management.
+- **Service:** `AdminService`, `AdminServiceImpl`  
+  Contains business logic for admin operations.
+- **Repositories:** `ExamRepository`, `QuestionRepository`, `UserRepository`  
+  Data access layers for exams, questions, and users.
+- **Models:** `Exam`, `Question`, `User`  
+  Entity classes representing the main data structures.
 
 ### Endpoints
 
@@ -171,6 +187,13 @@ The Admin Module enables administrators to manage exams, questions, and user rol
 | DELETE | `/api/admin/questions/{id}`           | Delete a question                  | ADMIN only  |
 | PUT    | `/api/admin/users/{id}/role`          | Assign a role to a user            | ADMIN only  |
 | PUT    | `/api/admin/exams/{examId}/questions` | Add questions to an existing exam  | ADMIN only  |
+
+### Role Assignment Logic
+
+- When a user registers, their role is always set to **student** (`ROLE_STUDENT`) by default.
+- Only an admin can change a user's role (e.g., to **examiner** or **admin**) using the endpoint:  
+  `PUT /api/admin/users/{id}/role?role=EXAMINER`
+- The `AdminController` exposes this endpoint, and the service layer (`AdminService`) handles the update logic.
 
 ### Controller Logic
 
@@ -186,13 +209,13 @@ The Admin Module enables administrators to manage exams, questions, and user rol
 
 ### Service Layer
 
-- **AdminService** defines the contract for question management.
-- **AdminServiceImpl** implements business logic for adding, updating, deleting, and retrieving questions.
+- **AdminService** defines the contract for admin operations.
+- **AdminServiceImpl** implements business logic for adding, updating, deleting, and retrieving exams and questions, and for assigning user roles.
 
 ### Security
 
 - All endpoints are protected and require the user to have the `ROLE_ADMIN` authority.
-- Security is enforced via Spring Security configuration in [`SecurityConfig`](backend/src/main/java/com/examportal/security/SecurityConfig.java).
+- Security is enforced via Spring Security configuration in `SecurityConfig.java`.
 
 ### Data Model
 
@@ -203,25 +226,17 @@ The Admin Module enables administrators to manage exams, questions, and user rol
 - **User:**  
   - Fields: `userId`, `name`, `email`, `password`, `role`
 
-### Example: Create Exam API
+### Example: Assign Role API
 
 **Request:**  
-`POST /api/admin/exams?examinerId=1&questionIds=2,3,4`  
-**Body:**  
-```json
-{
-  "title": "Java Basics",
-  "description": "Test on Java fundamentals",
-  "duration": 60,
-  "totalMarks": 100
-}
-```
+`PUT /api/admin/users/5/role?role=EXAMINER`
+
 **Response:**  
-Returns the created `Exam` object with assigned examiner and questions.
+Returns the updated `User` object with the new role.
 
 ### Error Handling
 
-- Uses [`GlobalExceptionHandler`](backend/src/main/java/com/examportal/exception/GlobalExceptionHandler.java) for consistent error responses.
+- Uses `GlobalExceptionHandler` for consistent error responses.
 - Throws `ResourceNotFoundException` if entities are not found.
 
 ---
